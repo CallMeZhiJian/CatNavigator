@@ -3,12 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Start
+  - Connector
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - ConnectPoint
   - Water
   - UI
   - 
