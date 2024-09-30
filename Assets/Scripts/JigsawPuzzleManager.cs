@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.UIElements;
 
 public class JigsawPuzzleManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] puzzlePoints;
+    [SerializeField] private PuzzleTile[] puzzleTiles;
 
-    Dictionary<string, PuzzleData> puzzleData;
-    Dictionary<Vector2, string> initialMapPosData;
+    //Dictionary<string, PuzzleTile> puzzleData;
+    Dictionary<Vector2, int> initialMapPosData;
     Dictionary<Vector2, string> mapPosData;
 
     private GapData puzzleGap;
-
-    private int puzzleIndexDestroyed = 0;
 
     [Header("Debug Properties")]
     public TextMeshProUGUI initialData;
@@ -28,6 +27,8 @@ public class JigsawPuzzleManager : MonoBehaviour
 
         DestroyRandomTile();
 
+        Shuffle();
+
         PrintInitialData();
         PrintMapData();
     }
@@ -40,32 +41,23 @@ public class JigsawPuzzleManager : MonoBehaviour
 
             if (hit.collider != null)
             {
-                GameObject hitObject = hit.collider.gameObject;
+                var hitTile = hit.collider.gameObject.GetComponent<PuzzleTile>();
 
-                if (CheckIfCanMove(hitObject))
-                {
-                    Vector3 tempWPos = new Vector3(0, 0, 0);
-                    Vector2 tempMatPos = new Vector2(0, 0);
-
-                    var pData = new PuzzleData();
+                if (CheckIfCanMove(hitTile))
+                { 
+                    // Store new gap data
+                    Vector3 tempWPos = hitTile.targetPos;
+                    Vector2 tempMatPos = hitTile.matrixPos;
 
                     //Move pressed puzzle
-                    hitObject.transform.position = puzzleGap.worldPos;
-
-                    if (puzzleData.TryGetValue(hitObject.name, out PuzzleData data))
-                    { 
-                        // Store new gap data
-                        tempWPos = data.worldPos;
-                        tempMatPos = data.matrixPos;                        
-                    }
+                    hitTile.targetPos = puzzleGap.currentPos;
 
                     //Store new data for pressed puzzle
-                    pData.worldPos = puzzleGap.worldPos;
-                    pData.matrixPos = puzzleGap.matrixPos;
-                    puzzleData[hitObject.name] = pData;
+                    hitTile.targetPos = puzzleGap.currentPos;
+                    hitTile.matrixPos = puzzleGap.matrixPos;
 
                     //Update mapPosData
-                    mapPosData[puzzleGap.matrixPos] = hitObject.name;
+                    //mapPosData[puzzleGap.matrixPos] = hitTile.tileName;
 
                     UpdatePuzzleGap(tempWPos, tempMatPos);
 
@@ -75,12 +67,12 @@ public class JigsawPuzzleManager : MonoBehaviour
         }
     }
 
-    private void UpdatePuzzleGap(Vector3 worldPos, Vector2 matrixPos)
+    private void UpdatePuzzleGap(Vector3 currentPos, Vector2 matrixPos)
     {
-        puzzleGap.worldPos = worldPos;
+        puzzleGap.currentPos = currentPos;
         puzzleGap.matrixPos = matrixPos;
 
-        mapPosData[matrixPos] = "gap";
+        //mapPosData[matrixPos] = "gap";
 
         PrintInitialData();
         PrintMapData();
@@ -88,21 +80,21 @@ public class JigsawPuzzleManager : MonoBehaviour
 
     private void DestroyRandomTile()
     {
-        puzzleIndexDestroyed = Random.Range(1, puzzlePoints.Length);
+        UpdatePuzzleGap(puzzleTiles[15].targetPos, puzzleTiles[15].matrixPos);
+        initialMapPosData[puzzleTiles[15].matrixPos] = -1;
 
-        UpdatePuzzleGap(puzzlePoints[puzzleIndexDestroyed - 1].transform.position, puzzleData[puzzlePoints[puzzleIndexDestroyed - 1].name].matrixPos);
-
-        Destroy(puzzlePoints[puzzleIndexDestroyed - 1]);
-
-        initialMapPosData[puzzleData[puzzlePoints[puzzleIndexDestroyed - 1].name].matrixPos] = "gap";
+        puzzleTiles[15].tileName = "gap";
+        puzzleTiles[15].targetPos = new Vector3(0, 0, 0);
+        puzzleTiles[15].matrixPos = new Vector2(0, 0);
+        Destroy(puzzleTiles[15].gameObject);
     }
 
-    private bool CheckIfCanMove(GameObject obj)
+    private bool CheckIfCanMove(PuzzleTile tile)
     {
         bool check = false;
 
-        float xDiff = puzzleGap.worldPos.x - obj.transform.position.x;
-        float yDiff = puzzleGap.worldPos.y - obj.transform.position.y;
+        float xDiff = puzzleGap.currentPos.x - tile.targetPos.x;
+        float yDiff = puzzleGap.currentPos.y - tile.targetPos.y;
 
         if (Mathf.Abs(xDiff) == 2.25 && yDiff == 0)
         {
@@ -118,44 +110,60 @@ public class JigsawPuzzleManager : MonoBehaviour
 
     private void CheckIfWin()
     {
-        Vector2 checkingPos;
+        //Vector2 checkingPos;
 
         bool isWin = false;
-        bool checkBreak = false;
+        //bool checkBreak = false;
 
-        for (int i = 1; i <= 4; i++)
+        //for (int i = 1; i <= 4; i++)
+        //{
+        //    for (int j = 1; j <= 4; j++)
+        //    {
+        //        checkingPos = new Vector2(i, j);
+
+        //        if (initialMapPosData.TryGetValue(checkingPos, out string initialValue)
+        //            && mapPosData.TryGetValue(checkingPos, out string currentValue))
+        //        {
+        //            if (currentValue == initialValue)
+        //            {
+        //                //Debug.Log(checkingPos + ": " + currentValue + " = " + initialValue);
+        //                isWin = true;
+        //                continue;
+        //            }
+        //            else
+        //            {
+        //                Debug.Log("Not the same");
+        //                checkBreak = true;
+        //                isWin = false;
+        //                break;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            Debug.Log("Not found");
+        //            isWin = false;
+        //            break;
+        //        }
+        //    }
+        //    if (checkBreak)
+        //    {
+        //        break;
+        //    }
+        //}
+
+        for (int i = 0; i < puzzleTiles.Length; i++)
         {
-            for (int j = 1; j <= 4; j++)
+            if (initialMapPosData.TryGetValue(puzzleTiles[i].matrixPos, out int initialValue))
             {
-                checkingPos = new Vector2(i, j);
-
-                if (initialMapPosData.TryGetValue(checkingPos, out string initialValue)
-                    && mapPosData.TryGetValue(checkingPos, out string currentValue))
+                if(initialValue == puzzleTiles[i].index)
                 {
-                    if (currentValue == initialValue)
-                    {
-                        Debug.Log(checkingPos + ": " + currentValue + " = " + initialValue);
-                        isWin = true;
-                        continue;
-                    }
-                    else
-                    {
-                        Debug.Log("Not the same");
-                        checkBreak = true;
-                        isWin = false;
-                        break;
-                    }
+                    isWin = true;
                 }
                 else
                 {
-                    Debug.Log("Not found");
                     isWin = false;
                     break;
                 }
-            }
-            if (checkBreak)
-            {
-                break;
             }
         }
 
@@ -167,28 +175,78 @@ public class JigsawPuzzleManager : MonoBehaviour
 
     private void StoreInitialData()
     {
-        puzzleData = new Dictionary<string, PuzzleData>();
-        initialMapPosData = new Dictionary<Vector2, string>();
-        mapPosData = new Dictionary<Vector2, string>();
+        initialMapPosData = new Dictionary<Vector2, int>();
+        //mapPosData = new Dictionary<Vector2, string>();
 
-        int count = 1;
+        int count = 0;
 
         for (int i = 1; i <= 4; i++)
         {
             for (int j = 1; j <= 4; j++)
             {
-                var data = new PuzzleData();
-                data.worldPos = puzzlePoints[count - 1].transform.position;
-                data.matrixPos = new Vector2(i, j);
+                puzzleTiles[count].matrixPos = new Vector2(i, j);
+                puzzleTiles[count].index = count + 1;
 
-                puzzleData.Add(count.ToString(), data);
-
-                initialMapPosData.Add(new Vector2(i, j), count.ToString());
-                mapPosData.Add(new Vector2(i, j), count.ToString());
+                initialMapPosData.Add(puzzleTiles[count].matrixPos, puzzleTiles[count].index);
+                //mapPosData.Add(new Vector2(i, j), count.ToString());
 
                 count++;
             }
         }
+    }
+
+    private void Shuffle()
+    {
+        int invertion;
+
+        do
+        {
+            for (int i = 0; i < puzzleTiles.Length - 1; i++)
+            {
+                if (puzzleTiles[i] != null)
+                {
+                    var tempPos = puzzleTiles[i].targetPos;
+                    var tempMat = puzzleTiles[i].matrixPos;
+
+                    int randomIndex = Random.Range(0, puzzleTiles.Length - 2);
+
+                    puzzleTiles[i].targetPos = puzzleTiles[randomIndex].targetPos;
+                    puzzleTiles[i].matrixPos = puzzleTiles[randomIndex].matrixPos;
+
+                    puzzleTiles[randomIndex].targetPos = tempPos;
+                    puzzleTiles[randomIndex].matrixPos = tempMat;
+
+                    var tile = puzzleTiles[i];
+                    puzzleTiles[i] = puzzleTiles[randomIndex];
+                    puzzleTiles[randomIndex] = tile;
+                }
+            }
+            invertion = GetInversion();
+        }while(invertion % 2 != 0);
+        
+    }
+
+    private int GetInversion()
+    {
+        int inversionSum = 0;
+
+        for (int i = 0; i < puzzleTiles.Length; i++)
+        {
+            int sum = 0;
+            for(int j = i; j < puzzleTiles.Length; j++)
+            {
+                if(puzzleTiles[j] != null)
+                {
+                    if(puzzleTiles[i].index > puzzleTiles[j].index)
+                    {
+                        sum++;
+                    }
+                }
+            }
+            inversionSum += sum;
+        }
+
+        return inversionSum;
     }
 
     private void PrintInitialData()
@@ -203,28 +261,20 @@ public class JigsawPuzzleManager : MonoBehaviour
             initialData.text += vec2[i].ToString() + " : " + str[i] + "\n";
         }
     }
+
     private void PrintMapData()
     {
         mapData.text = "";
 
-        var vec2 = mapPosData.Keys.ToArray();
-        var str = mapPosData.Values.ToArray();
-
-        for (int i = 0; i < vec2.Length; i++)
+        for (int i = 0; i < puzzleTiles.Length; i++)
         {
-            mapData.text += vec2[i].ToString() + " : " + str[i] + "\n";
+            mapData.text += puzzleTiles[i].index + " : " + puzzleTiles[i].targetPos + " , " + puzzleTiles[i].matrixPos + "\n";
         }
     }
 }
 
 public class GapData
 {
-    public Vector3 worldPos;
-    public Vector2 matrixPos;
-}
-
-public class PuzzleData
-{
-    public Vector3 worldPos;
+    public Vector3 currentPos;
     public Vector2 matrixPos;
 }

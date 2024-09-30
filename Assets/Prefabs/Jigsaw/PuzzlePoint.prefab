@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7801596238105338524}
   - component: {fileID: 4726602611496139120}
   - component: {fileID: -2744029288450999685}
+  - component: {fileID: 2452187204966459989}
   m_Layer: 0
   m_Name: PuzzlePoint
   m_TagString: Untagged
@@ -130,3 +131,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2452187204966459989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9102703631197307162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0339af45073bcf140bd65e7d952b9726, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentPos: {x: 0, y: 0, z: 0}
+  targetPos: {x: 0, y: 0, z: 0}
+  matrixPos: {x: 0, y: 0}
+  initialMatPos: {x: 0, y: 0}
