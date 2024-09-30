@@ -6,8 +6,9 @@ public class JigsawPuzzleTile : MonoBehaviour
 {
     public int index;
     public Vector3 targetPos;
+    public bool isInPlace;
 
-    void Start()
+    void Awake()
     {
         targetPos = transform.position;
     }
