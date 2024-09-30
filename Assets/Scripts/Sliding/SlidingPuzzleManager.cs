@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
-using UnityEngine.UIElements;
 
-public class JigsawPuzzleManager : MonoBehaviour
+public class SlidingPuzzleManager : MonoBehaviour
 {
     [SerializeField] private PuzzleTile[] puzzleTiles;
 
-    //Dictionary<string, PuzzleTile> puzzleData;
     Dictionary<Vector2, int> initialMapPosData;
-    Dictionary<Vector2, string> mapPosData;
 
     private GapData puzzleGap;
 
@@ -72,8 +69,6 @@ public class JigsawPuzzleManager : MonoBehaviour
         puzzleGap.currentPos = currentPos;
         puzzleGap.matrixPos = matrixPos;
 
-        //mapPosData[matrixPos] = "gap";
-
         PrintInitialData();
         PrintMapData();
     }
@@ -110,46 +105,7 @@ public class JigsawPuzzleManager : MonoBehaviour
 
     private void CheckIfWin()
     {
-        //Vector2 checkingPos;
-
         bool isWin = false;
-        //bool checkBreak = false;
-
-        //for (int i = 1; i <= 4; i++)
-        //{
-        //    for (int j = 1; j <= 4; j++)
-        //    {
-        //        checkingPos = new Vector2(i, j);
-
-        //        if (initialMapPosData.TryGetValue(checkingPos, out string initialValue)
-        //            && mapPosData.TryGetValue(checkingPos, out string currentValue))
-        //        {
-        //            if (currentValue == initialValue)
-        //            {
-        //                //Debug.Log(checkingPos + ": " + currentValue + " = " + initialValue);
-        //                isWin = true;
-        //                continue;
-        //            }
-        //            else
-        //            {
-        //                Debug.Log("Not the same");
-        //                checkBreak = true;
-        //                isWin = false;
-        //                break;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            Debug.Log("Not found");
-        //            isWin = false;
-        //            break;
-        //        }
-        //    }
-        //    if (checkBreak)
-        //    {
-        //        break;
-        //    }
-        //}
 
         for (int i = 0; i < puzzleTiles.Length; i++)
         {
@@ -176,7 +132,6 @@ public class JigsawPuzzleManager : MonoBehaviour
     private void StoreInitialData()
     {
         initialMapPosData = new Dictionary<Vector2, int>();
-        //mapPosData = new Dictionary<Vector2, string>();
 
         int count = 0;
 
@@ -188,7 +143,6 @@ public class JigsawPuzzleManager : MonoBehaviour
                 puzzleTiles[count].index = count + 1;
 
                 initialMapPosData.Add(puzzleTiles[count].matrixPos, puzzleTiles[count].index);
-                //mapPosData.Add(new Vector2(i, j), count.ToString());
 
                 count++;
             }
