@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -2744029288450999685}
   - component: {fileID: 2452187204966459989}
   m_Layer: 0
-  m_Name: PuzzlePoint
+  m_Name: SlidingPuzzleTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 2.1999998, y: 2.1999998, z: 2.1999998}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0339af45073bcf140bd65e7d952b9726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPos: {x: 0, y: 0, z: 0}
+  index: 0
+  tileName: 
   targetPos: {x: 0, y: 0, z: 0}
   matrixPos: {x: 0, y: 0}
-  initialMatPos: {x: 0, y: 0}
