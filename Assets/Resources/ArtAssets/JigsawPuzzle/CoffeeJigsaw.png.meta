@@ -1,0 +1,369 @@
+fileFormatVersion: 2
+guid: 02a5604be731e534e8b58829cee42f7a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1080
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: CoffeeJigsaw_0
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 840
+        width: 260
+        height: 240
+      alignment: 9
+      pivot: {x: 0.84398335, y: 0.33541793}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b5da1cb961522745ad03947ae5b4c5e
+      internalID: -1430463217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_1
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 840
+        width: 260
+        height: 240
+      alignment: 9
+      pivot: {x: 0.23853596, y: 0.25487748}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bf977e5b6edfcb4c905eed4a6f95f1d
+      internalID: 159644631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_2
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 600
+        width: 260
+        height: 240
+      alignment: 9
+      pivot: {x: 0.8352106, y: 0.22400996}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4df05683b76e27d4aace19c7e2a4b064
+      internalID: -753603477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_3
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 600
+        width: 260
+        height: 240
+      alignment: 9
+      pivot: {x: 0.54022545, y: 0.39468816}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcdfe043942cb484f8237d3f216e5284
+      internalID: 1936427387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_4
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 600
+        width: 260
+        height: 240
+      alignment: 9
+      pivot: {x: 0.24356408, y: 0.23853582}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de028ff3aa7bb9f4da100667bc7dbaf1
+      internalID: -1260127703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_5
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 360
+        width: 260
+        height: 240
+      alignment: 9
+      pivot: {x: 0.6776616, y: 0.44371262}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd64620cca41b0e47b1c26c51bf83ce3
+      internalID: 85756561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_6
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 360
+        width: 260
+        height: 240
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffde286932935154b9ed7b8173111a81
+      internalID: -1861146696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_7
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 360
+        width: 260
+        height: 240
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9ce561f07c8509428099c0efa610d6d
+      internalID: 1124087353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_8
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 120
+        width: 260
+        height: 240
+      alignment: 9
+      pivot: {x: 0.7480558, y: 0.8195675}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 230c564bca5cddf4bb9a3ce4d06e7cbe
+      internalID: 2107749596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_9
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 120
+        width: 260
+        height: 240
+      alignment: 9
+      pivot: {x: 0.50167626, y: 0.7287813}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7ee6d70b43431f4bbb6ab50f06687e0
+      internalID: -1198155067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CoffeeJigsaw_10
+      rect:
+        serializedVersion: 2
+        x: 632
+        y: 120
+        width: 260
+        height: 240
+      alignment: 9
+      pivot: {x: 0.32736677, y: 0.8359089}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dcd4cbfb3bdff641ae112dd77ac854f
+      internalID: 713932765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      CoffeeJigsaw_0: -1430463217
+      CoffeeJigsaw_1: 159644631
+      CoffeeJigsaw_10: 713932765
+      CoffeeJigsaw_2: -753603477
+      CoffeeJigsaw_3: 1936427387
+      CoffeeJigsaw_4: -1260127703
+      CoffeeJigsaw_5: 85756561
+      CoffeeJigsaw_6: -1861146696
+      CoffeeJigsaw_7: 1124087353
+      CoffeeJigsaw_8: 2107749596
+      CoffeeJigsaw_9: -1198155067
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

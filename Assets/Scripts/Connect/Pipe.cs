@@ -11,7 +11,7 @@ public class Pipe : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite emptySprite;
     [SerializeField] private Sprite filledSprite;
-    [SerializeField] private float[] correctRot;
+    [SerializeField] private int[] correctRot;
 
     private int[] rot = { 0, 90, 180, 270 };
 
@@ -30,7 +30,7 @@ public class Pipe : MonoBehaviour
     private void Update()
     {
         //transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, currentRotation, 0.05f);
-        if(isInPlace && isFilled)
+        if (isInPlace && isFilled)
         {
             spriteRenderer.sprite = filledSprite;
         }
@@ -47,12 +47,22 @@ public class Pipe : MonoBehaviour
 
     public void checkRot()
     {
-        for (int i = 0; i < correctRot.Length; i++)
+        if (correctRot.Length == 1)
         {
-            if (transform.eulerAngles.z == correctRot[i])
+            if (transform.eulerAngles.z == correctRot[0] && !isInPlace)
             {
                 isInPlace = true;
-                break;
+            }
+            else
+            {
+                isInPlace = false;
+            }
+        }
+        else if (correctRot.Length == 2)
+        {
+            if (transform.eulerAngles.z == correctRot[0] || transform.eulerAngles.z == correctRot[1] && !isInPlace)
+            {
+                isInPlace = true;
             }
             else
             {

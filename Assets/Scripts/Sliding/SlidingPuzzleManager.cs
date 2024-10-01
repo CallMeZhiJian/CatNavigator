@@ -3,21 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class SlidingPuzzleManager : MonoBehaviour
 {
+    private bool hasGameFinished;
+
     [SerializeField] private PuzzleTile[] puzzleTiles;
 
     Dictionary<Vector2, int> initialMapPosData;
 
     private GapData puzzleGap;
 
-    [Header("Debug Properties")]
-    public TextMeshProUGUI initialData;
-    public TextMeshProUGUI mapData;
+    private GameObject destroyTile;
+
+    [SerializeField] private Animator anim;
 
     void Start()
     {
+        hasGameFinished = false;
+
         puzzleGap = new GapData();
 
         StoreInitialData();
@@ -25,13 +30,12 @@ public class SlidingPuzzleManager : MonoBehaviour
         DestroyRandomTile();
 
         Shuffle();
-
-        PrintInitialData();
-        PrintMapData();
     }
 
     void Update()
     {
+        if (hasGameFinished) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -68,9 +72,6 @@ public class SlidingPuzzleManager : MonoBehaviour
     {
         puzzleGap.currentPos = currentPos;
         puzzleGap.matrixPos = matrixPos;
-
-        PrintInitialData();
-        PrintMapData();
     }
 
     private void DestroyRandomTile()
@@ -81,7 +82,11 @@ public class SlidingPuzzleManager : MonoBehaviour
         puzzleTiles[15].tileName = "gap";
         puzzleTiles[15].targetPos = new Vector3(0, 0, 0);
         puzzleTiles[15].matrixPos = new Vector2(0, 0);
-        Destroy(puzzleTiles[15].gameObject);
+
+        destroyTile = puzzleTiles[15].gameObject;
+
+        //Destroy(puzzleTiles[15].gameObject);
+        destroyTile.SetActive(false);
     }
 
     private bool CheckIfCanMove(PuzzleTile tile)
@@ -101,32 +106,6 @@ public class SlidingPuzzleManager : MonoBehaviour
         }
 
         return check;
-    }
-
-    private void CheckIfWin()
-    {
-        bool isWin = false;
-
-        for (int i = 0; i < puzzleTiles.Length; i++)
-        {
-            if (initialMapPosData.TryGetValue(puzzleTiles[i].matrixPos, out int initialValue))
-            {
-                if(initialValue == puzzleTiles[i].index)
-                {
-                    isWin = true;
-                }
-                else
-                {
-                    isWin = false;
-                    break;
-                }
-            }
-        }
-
-        if (isWin)
-        {
-            Debug.Log("Win");
-        }
     }
 
     private void StoreInitialData()
@@ -203,27 +182,45 @@ public class SlidingPuzzleManager : MonoBehaviour
         return inversionSum;
     }
 
-    private void PrintInitialData()
+    private void CheckIfWin()
     {
-        initialData.text = "";
-
-        var vec2 = initialMapPosData.Keys.ToArray();
-        var str = initialMapPosData.Values.ToArray();
-
-        for (int i = 0; i < vec2.Length; i++)
-        {
-            initialData.text += vec2[i].ToString() + " : " + str[i] + "\n";
-        }
-    }
-
-    private void PrintMapData()
-    {
-        mapData.text = "";
+        bool isWin = false;
 
         for (int i = 0; i < puzzleTiles.Length; i++)
         {
-            mapData.text += puzzleTiles[i].index + " : " + puzzleTiles[i].targetPos + " , " + puzzleTiles[i].matrixPos + "\n";
+            if (initialMapPosData.TryGetValue(puzzleTiles[i].matrixPos, out int initialValue))
+            {
+                if (initialValue == puzzleTiles[i].index)
+                {
+                    isWin = true;
+                }
+                else
+                {
+                    isWin = false;
+                    break;
+                }
+            }
         }
+
+        if (isWin)
+        {
+            hasGameFinished = true;
+
+            destroyTile.SetActive(true);
+
+            Debug.Log("Win");
+
+            StartCoroutine(WiningScene());
+        }
+    }
+
+    private IEnumerator WiningScene()
+    {
+        anim.SetTrigger("Win");
+
+        yield return new WaitForSeconds(2.5f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
 

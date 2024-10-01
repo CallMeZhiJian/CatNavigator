@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class JigsawManager : MonoBehaviour
 {
+    private bool hasGameFinished;
+
     [SerializeField] private Transform[] pointTransform;   
     Dictionary <int, Vector3> pointDatas;
 
@@ -12,8 +15,11 @@ public class JigsawManager : MonoBehaviour
     private GameObject currentHoldingPuzzle;
     private bool isHolding;
 
+    [SerializeField] private Animator anim;
+
     private void Start()
     {
+        hasGameFinished = false;
         isHolding = false;
 
         pointDatas = new Dictionary<int, Vector3>();
@@ -27,6 +33,8 @@ public class JigsawManager : MonoBehaviour
 
     private void Update()
     {
+        if (hasGameFinished) return;
+
         if (currentHoldingPuzzle != null)
         {
             if (isHolding)
@@ -86,6 +94,24 @@ public class JigsawManager : MonoBehaviour
             checkWin();
         }
     }
+    private void Scatter()
+    {
+        float offset = 1.0f;
+
+        float orthoHeight = Camera.main.orthographicSize;
+        float screenAspect = (float)Screen.width / Screen.height;
+        float orthoWidth = (screenAspect * orthoHeight);
+
+        for (int i = 0; i < jigsawTiles.Length; i++)
+        {
+            jigsawTiles[i].index = i;
+
+            float x = Random.Range(-orthoWidth + offset, orthoWidth - offset);
+            float y = Random.Range(-orthoHeight + offset, orthoHeight - offset);
+            jigsawTiles[i].targetPos = new Vector3(x, y, 0);
+            Debug.Log(i);
+        }
+    }
 
     private void checkWin()
     {
@@ -110,26 +136,18 @@ public class JigsawManager : MonoBehaviour
 
         if (check)
         {
-            Debug.Log("Win");
+            hasGameFinished = true;
+
+            StartCoroutine(WiningScene());
         }
     }
 
-    private void Scatter()
+    private IEnumerator WiningScene()
     {
-        float offset = 1.0f;
+        anim.SetTrigger("Win");
+        
+        yield return new WaitForSeconds(1.0f);
 
-        float orthoHeight = Camera.main.orthographicSize;
-        float screenAspect = (float)Screen.width / Screen.height;
-        float orthoWidth = (screenAspect * orthoHeight);
-
-        for (int i = 0; i < jigsawTiles.Length; i++)
-        {
-            jigsawTiles[i].index = i;
-
-            float x = Random.Range(-orthoWidth + offset, orthoWidth - offset);
-            float y = Random.Range(-orthoHeight + offset, orthoHeight - offset);
-            jigsawTiles[i].targetPos = new Vector3(x, y, 0);
-            Debug.Log(i);
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

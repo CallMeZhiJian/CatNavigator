@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ConnectPuzzleManager : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class ConnectPuzzleManager : MonoBehaviour
 
     private void Start()
     {
+        hasGameFinished = false;
         m_Camera = Camera.main;
 
         checkFill();
@@ -28,13 +31,16 @@ public class ConnectPuzzleManager : MonoBehaviour
             {
                 Pipe thisPipe = hit.collider.gameObject.GetComponent<Pipe>();
 
-                thisPipe.RotateSelf();
+                if (thisPipe != null)
+                {
+                    thisPipe.RotateSelf();
 
-                thisPipe.checkRot();
+                    thisPipe.checkRot();
 
-                checkFill();
+                    checkFill();
 
-                checkWin();
+                    checkWin();
+                }                
             }
         }
     }
@@ -97,7 +103,18 @@ public class ConnectPuzzleManager : MonoBehaviour
 
         if (check)
         {
+            hasGameFinished = true;
             Debug.Log("win");
+
+            StartCoroutine(WiningScene());
         }
+    }
+
+    private IEnumerator WiningScene()
+    {
+        Debug.Log("Some cutscene for seconds");
+        yield return new WaitForSeconds(1.0f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
