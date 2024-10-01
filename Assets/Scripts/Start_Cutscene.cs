@@ -16,6 +16,11 @@ public class Start_Cutscene : MonoBehaviour
 
     private IEnumerator ClosePanel()
     {
+        if(AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayButtonSFX();
+        }
+        
         mainTitleAnim.SetTrigger("StartGame");
 
         yield return new WaitForSeconds(1.0f);

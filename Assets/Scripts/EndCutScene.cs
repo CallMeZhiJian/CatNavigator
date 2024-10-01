@@ -21,6 +21,11 @@ public class EndCutScene : MonoBehaviour
 
     public void ReturnToMainTitle()
     {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayButtonSFX();
+        }
+
         SceneManager.LoadScene(0);
     }
 }
